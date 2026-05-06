@@ -1,0 +1,104 @@
+.cinemas-page {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.cinemas-hero {
+    padding: 32px;
+    background:
+        radial-gradient(circle at top right, rgba(229, 9, 20, 0.2), transparent 35%),
+        linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+}
+
+.cinemas-hero h1 {
+    font-size: 2.5rem;
+    margin: 8px 0 10px;
+}
+
+.cinemas-hero p {
+    color: var(--color-gray);
+    max-width: 720px;
+}
+
+.eyebrow {
+    color: var(--color-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 0.82rem;
+    font-weight: 700;
+}
+
+.cinema-filter-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.city-chip {
+    padding: 10px 16px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.05);
+    color: var(--color-light);
+    border: 1px solid rgba(255,255,255,0.08);
+}
+
+.city-chip.active {
+    background: rgba(229, 9, 20, 0.18);
+    color: var(--color-white);
+    border-color: rgba(229, 9, 20, 0.45);
+}
+
+.cinema-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.cinema-card {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.cinema-card-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    align-items: flex-start;
+}
+
+.cinema-card h3 {
+    font-size: 1.4rem;
+    color: var(--color-white);
+    margin-top: 10px;
+}
+
+.city-badge {
+    display: inline-block;
+    padding: 6px 10px;
+    background: rgba(212, 175, 55, 0.12);
+    color: var(--color-secondary);
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 700;
+}
+
+.cinema-desc {
+    color: var(--color-gray);
+    min-height: 72px;
+}
+
+.cinema-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.meta-line {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    color: var(--color-light);
+}

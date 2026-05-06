@@ -1,0 +1,202 @@
+/* Backdrop */
+.md-backdrop {
+    width: 100%;
+    min-height: 400px;
+    background-size: cover;
+    background-position: center;
+    padding: 60px 0 40px;
+    margin-bottom: 40px;
+}
+
+.md-header {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+}
+
+.md-poster {
+    flex-shrink: 0;
+    width: 250px;
+    border-radius: var(--border-radius-md);
+    overflow: hidden;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.md-poster img {
+    width: 100%;
+    display: block;
+}
+
+.md-info {
+    flex-grow: 1;
+}
+
+.md-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    color: var(--color-white);
+}
+
+.md-meta {
+    font-size: 1rem;
+    color: var(--color-light);
+}
+
+.rating-badge {
+    background: var(--color-warning);
+    color: #000;
+    padding: 2px 8px;
+    border-radius: var(--border-radius-sm);
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.md-genres {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.md-desc {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: var(--color-light);
+    max-width: 800px;
+}
+
+.md-details p {
+    margin-bottom: 5px;
+}
+
+/* Showtimes Section */
+.showtimes-section {
+    margin-bottom: 80px;
+}
+
+/* Date Tabs */
+.date-tabs {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    margin-bottom: 30px;
+}
+
+.date-tabs::-webkit-scrollbar {
+    height: 4px;
+}
+
+.date-tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 80px;
+    padding: 10px 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--border-radius-md);
+    color: var(--color-gray);
+    transition: all var(--transition-fast);
+}
+
+.date-tab:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--color-white);
+}
+
+.date-tab.active {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-white);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(229, 9, 20, 0.3);
+}
+
+.tab-day {
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+.tab-date {
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+/* Cinemas List */
+.cinema-group {
+    padding: 25px;
+    border-left: 4px solid var(--color-primary);
+}
+
+.cinema-name {
+    font-size: 1.4rem;
+    margin-bottom: 5px;
+}
+
+.time-slots {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.time-slot {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--color-white);
+    padding: 10px 20px;
+    border-radius: var(--border-radius-sm);
+    font-weight: 600;
+    font-size: 1.1rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all var(--transition-fast);
+    text-align: center;
+    min-width: 90px;
+}
+
+.time-slot:hover {
+    background: rgba(229, 9, 20, 0.1);
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+    transform: scale(1.05);
+}
+
+.time-slot.disabled {
+    opacity: 0.4;
+    pointer-events: none;
+    text-decoration: line-through;
+}
+
+@media (max-width: 768px) {
+    .md-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .md-poster {
+        width: 180px;
+    }
+    
+    .md-genres {
+        justify-content: center;
+    }
+    
+    .md-meta {
+        justify-content: center;
+    }
+}
+
+/* Smart Filters */
+.smart-filters { display: flex; flex-direction: column; gap: 15px; padding: 20px; }
+.filter-group { display: flex; align-items: center; gap: 15px; flex-wrap: wrap; }
+.filter-label { font-weight: 600; color: var(--color-gray); min-width: 80px; }
+.filter-chips { display: flex; gap: 10px; flex-wrap: wrap; }
+.filter-chip { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: var(--color-light); padding: 6px 16px; border-radius: 20px; cursor: pointer; transition: all var(--transition-fast); font-size: 0.9rem; }
+.filter-chip:hover { border-color: var(--color-primary); color: var(--color-primary); }
+.filter-chip.active { background: var(--color-primary); border-color: var(--color-primary); color: white; }
+.time-slot { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 8px 12px; }
+.slot-time { font-size: 1rem; font-weight: 600; }
+.slot-format { font-size: 0.7rem; opacity: 0.7; margin-top: 2px; }
+@media (max-width: 768px) { .filter-group { flex-direction: column; align-items: flex-start; gap: 8px; } }
