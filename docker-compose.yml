@@ -1,0 +1,53 @@
+services:
+  mongo:
+    image: mongo:7
+    container_name: cinema-mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: cinema-backend
+    restart: unless-stopped
+    depends_on:
+      mongo:
+        condition: service_healthy
+    environment:
+      PORT: 3000
+      MONGO_URI: mongodb://mongo:27017/QuanLiRapChieuPhim
+      JWT_SECRET: cinema_super_secret_key_2026_change_this_in_production
+      JWT_EXPIRES_IN: 7d
+      TMDB_API_KEY: 85ce3e966ce8917dc12524ebb5715a06
+      TMDB_LANGUAGE: vi-VN
+      TMDB_POPULAR_PAGES: 3
+      TMDB_UPCOMING_PAGES: 3
+      TMDB_UPCOMING_REGION: ""
+    ports:
+      - "3000:3000"
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        VITE_API_BASE_URL: http://127.0.0.1:3000/api/v1
+    container_name: cinema-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "5173:5173"
+
+volumes:
+  mongo_data:
