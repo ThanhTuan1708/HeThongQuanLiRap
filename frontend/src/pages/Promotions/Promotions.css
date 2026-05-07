@@ -1,0 +1,119 @@
+.promotions-page {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.promo-hero {
+    padding: 34px;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    align-items: center;
+    background:
+        radial-gradient(circle at 85% 20%, rgba(212, 175, 55, 0.18), transparent 22%),
+        radial-gradient(circle at 15% 85%, rgba(229, 9, 20, 0.16), transparent 25%),
+        linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+}
+
+.promo-hero h1 {
+    font-size: 2.4rem;
+    margin: 8px 0 12px;
+}
+
+.promo-hero p {
+    color: var(--color-gray);
+    max-width: 720px;
+}
+
+.promo-icon {
+    flex-shrink: 0;
+}
+
+.promotion-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.promotion-card {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.promotion-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    align-items: flex-start;
+}
+
+.promotion-head h3 {
+    font-size: 1.35rem;
+    margin-top: 10px;
+}
+
+.promo-code {
+    display: inline-block;
+    padding: 7px 12px;
+    border-radius: 999px;
+    background: rgba(229, 9, 20, 0.15);
+    color: var(--color-primary);
+    font-weight: 800;
+    letter-spacing: 0.08em;
+}
+
+.promotion-desc {
+    color: var(--color-gray);
+    min-height: 72px;
+}
+
+.promotion-pill-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.promotion-pill {
+    padding: 8px 12px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    color: var(--color-light);
+    font-size: 0.92rem;
+}
+
+.promotion-pill.strong {
+    background: rgba(212, 175, 55, 0.14);
+    color: var(--color-secondary);
+    border-color: rgba(212, 175, 55, 0.22);
+}
+
+.promotion-footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 14px;
+    align-items: center;
+    color: var(--color-gray);
+    font-size: 0.95rem;
+}
+
+.promo-validity {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+@media (max-width: 700px) {
+    .promo-hero {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .promotion-footer {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

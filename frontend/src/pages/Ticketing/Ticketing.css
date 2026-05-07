@@ -1,0 +1,275 @@
+.ticketing-page {
+    padding-top: 20px;
+    padding-bottom: 60px;
+}
+
+.page-title {
+    font-size: 2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 2px solid var(--color-primary);
+    display: inline-block;
+    padding-bottom: 10px;
+}
+
+/* Date Selector */
+.date-selector {
+    padding: 15px;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+}
+
+.date-scroll {
+    display: flex;
+    overflow-x: auto;
+    gap: 10px;
+    padding-bottom: 10px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-primary) rgba(255, 255, 255, 0.1);
+}
+
+.date-scroll::-webkit-scrollbar {
+    height: 6px;
+}
+
+.date-scroll::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+}
+
+.date-scroll::-webkit-scrollbar-thumb {
+    background-color: var(--color-primary);
+    border-radius: 4px;
+}
+
+.date-tab-ticket {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 80px;
+    padding: 10px;
+    border-radius: var(--radius-md);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--color-light);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.date-tab-ticket:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.date-tab-ticket.active {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: white;
+}
+
+.month-year {
+    font-size: 0.7rem;
+    opacity: 0.7;
+    margin-bottom: 2px;
+}
+
+.tab-day {
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.tab-date {
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+/* 3 Columns Layout */
+.ticketing-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr 1fr;
+    gap: 20px;
+    min-height: 600px;
+}
+
+.ticket-col {
+    display: flex;
+    flex-direction: column;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: rgba(18, 18, 18, 0.7);
+}
+
+.col-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.col-header h2 {
+    font-size: 1.2rem;
+    margin: 0;
+    font-weight: 600;
+}
+
+.col-header svg {
+    color: var(--color-primary);
+}
+
+/* City Filter in Col 1 */
+.city-filter {
+    display: flex;
+    gap: 10px;
+    padding: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    flex-wrap: wrap;
+}
+
+.city-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: none;
+    color: var(--color-gray);
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.city-btn:hover {
+    color: white;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.city-btn.active {
+    background: var(--color-primary);
+    color: white;
+}
+
+/* List Items */
+.list-container {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+/* Custom Scrollbar for list */
+.list-container::-webkit-scrollbar {
+    width: 6px;
+}
+.list-container::-webkit-scrollbar-track {
+    background: rgba(255,255,255,0.02);
+}
+.list-container::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.1);
+    border-radius: 3px;
+}
+
+.list-item {
+    padding: 12px 15px;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    border: 1px solid transparent;
+}
+
+.list-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.list-item.selected {
+    background: rgba(229, 9, 20, 0.1);
+    border-color: var(--color-primary);
+    color: white;
+}
+
+.item-title {
+    font-weight: 500;
+}
+
+/* Movie Items */
+.movie-item-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.age-rating-small {
+    background: #e5a00d;
+    color: #121212;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+/* Showtimes Grid */
+.showtimes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 10px;
+    padding: 10px;
+}
+
+.st-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-md);
+    padding: 10px;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    color: var(--color-light);
+}
+
+.st-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--color-primary);
+}
+
+.st-time {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-bottom: 4px;
+}
+
+.st-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 0.7rem;
+    color: var(--color-gray);
+    line-height: 1.3;
+}
+
+.empty-state {
+    padding: 30px;
+    text-align: center;
+    font-style: italic;
+    opacity: 0.7;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .ticketing-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto;
+    }
+    
+    .ticket-col {
+        min-height: 300px;
+        max-height: 400px;
+    }
+}
