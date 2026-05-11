@@ -9,3 +9,5 @@ frontend-dev.err.log
 frontend-live.err.log
 *.vpp
 *.vpp.bak_*
+*.log
+*.txt

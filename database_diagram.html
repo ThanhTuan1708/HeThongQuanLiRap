@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database ER Diagram</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: #f4f4f9;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+            max-width: 100%;
+            overflow: auto;
+        }
+
+        button {
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+
+    <button id="downloadBtn">Tải ảnh xuống (Download PNG)</button>
+
+    <div class="container">
+        <div class="mermaid" id="mermaidDiagram">
+            erDiagram
+            User ||--o{ Booking : "makes"
+            User ||--o{ SeatLock : "locks"
+            User ||--o{ PromotionUsage : "uses"
+            User ||--o{ Refund : "processed_by"
+            User ||--o{ Ticket : "checked_in_by"
+
+            Cinema ||--o{ Room : "has"
+            Cinema ||--o{ Showtime : "shows"
+
+            Room ||--o{ Showtime : "hosts"
+
+            Movie ||--o{ Showtime : "has"
+
+            Showtime ||--o{ SeatLock : "has"
+            Showtime ||--o{ Booking : "has"
+            Showtime ||--o{ Ticket : "has"
+
+            Booking ||--o{ Ticket : "generates"
+            Booking }o--|| Payment : "paid_via"
+            Booking ||--o{ Refund : "has"
+            Booking ||--o{ PromotionUsage : "applied_to"
+
+            Payment ||--o{ PaymentEvent : "generates"
+            Payment ||--o{ Refund : "has"
+
+            SeatType ||--o{ Ticket : "has"
+
+            Promotion ||--o{ PromotionUsage : "recorded_as"
+
+            User {
+            ObjectId _id PK
+            String fullName
+            String email
+            String password
+            String phone
+            String role "user, admin"
+            Boolean isActive
+            }
+
+            Cinema {
+            ObjectId _id PK
+            String code
+            String name
+            String city
+            String district
+            String address
+            String phone
+            String email
+            String status
+            }
+
+            Room {
+            ObjectId _id PK
+            ObjectId cinema FK
+            String name
+            String screenType
+            Number totalSeats
+            String status
+            Array seatLayout
+            }
+
+            SeatType {
+            ObjectId _id PK
+            String code
+            String name
+            Number baseSurcharge
+            Array features
+            String color
+            Boolean isActive
+            }
+
+            Movie {
+            ObjectId _id PK
+            String title
+            String slug
+            String description
+            Array genre
+            Number durationMinutes
+            String language
+            String director
+            Array cast
+            Date releaseDate
+            Date endDate
+            String ageRating
+            String status
+            }
+
+            Showtime {
+            ObjectId _id PK
+            ObjectId movie FK
+            ObjectId cinema FK
+            ObjectId room FK
+            Date startTime
+            Date endTime
+            String status
+            Array pricing
+            }
+
+            SeatLock {
+            ObjectId _id PK
+            ObjectId showtime FK
+            String seatCode
+            ObjectId user FK
+            String status "locked, converted, released"
+            Date lockedAt
+            Date expiresAt
+            }
+
+            Booking {
+            ObjectId _id PK
+            ObjectId user FK
+            ObjectId showtime FK
+            Array seatCodes
+            String bookingCode
+            Number subtotal
+            Number discountAmount
+            Number totalAmount
+            String promotionCode
+            String paymentProvider
+            String status "pending_payment, paid, cancelled, expired"
+            Date expiresAt
+            }
+
+            Ticket {
+            ObjectId _id PK
+            ObjectId booking FK
+            ObjectId showtime FK
+            String seatCode
+            ObjectId seatType FK
+            Number price
+            String qrCode
+            String status
+            Date checkedInAt
+            ObjectId checkedInBy FK
+            }
+
+            Payment {
+            ObjectId _id PK
+            Array bookings FK
+            String provider
+            Number amount
+            String status
+            String transactionId
+            String paymentUrl
+            Date paidAt
+            }
+
+            PaymentEvent {
+            ObjectId _id PK
+            ObjectId payment FK
+            String eventType
+            String source
+            Date receivedAt
+            }
+
+            Refund {
+            ObjectId _id PK
+            ObjectId payment FK
+            ObjectId booking FK
+            Number amount
+            String reason
+            String status
+            Date refundedAt
+            ObjectId processedBy FK
+            }
+
+            Promotion {
+            ObjectId _id PK
+            String type
+            String code
+            String name
+            String discountType
+            Number discountValue
+            Number minOrderValue
+            Date validFrom
+            Date validTo
+            Number usageLimit
+            Number perUserLimit
+            Number usedCount
+            String status
+            }
+
+            PromotionUsage {
+            ObjectId _id PK
+            ObjectId user FK
+            ObjectId promotion FK
+            ObjectId booking FK
+            Number discountAmount
+            Date usedAt
+            }
+        </div>
+    </div>
+
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+
+        document.getElementById('downloadBtn').addEventListener('click', function () {
+            const svg = document.querySelector('.mermaid svg');
+            if (!svg) {
+                alert('Sơ đồ chưa tải xong, vui lòng đợi một lát!');
+                return;
+            }
+
+            // Lấy kích thước thật của SVG
+            const svgData = new XMLSerializer().serializeToString(svg);
+            const canvas = document.createElement("canvas");
+            const ctx = canvas.getContext("2d");
+
+            const img = new Image();
+            img.onload = function () {
+                canvas.width = img.width * 2; // Tăng chất lượng ảnh (Retina)
+                canvas.height = img.height * 2;
+                ctx.scale(2, 2);
+                ctx.fillStyle = "white";
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.drawImage(img, 0, 0);
+
+                const a = document.createElement("a");
+                a.download = "database_diagram.png";
+                a.href = canvas.toDataURL("image/png");
+                a.click();
+            };
+            img.src = "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(svgData)));
+        });
+    </script>
+</body>
+
+</html>
