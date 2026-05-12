@@ -57,7 +57,7 @@ const ComingSoon = () => {
                             <Link to={`/movie/${movie._id}`} key={movie._id} className="movie-card">
                                 <div className="movie-poster">
                                     <img
-                                        src={movie.posterUrl || `https://via.placeholder.com/300x450/1E1E1E/E50914?text=${encodeURIComponent(movie.title)}`}
+                                        src={movie.posterUrl || `https://placehold.co/300x450/1E1E1E/E50914?text=${encodeURIComponent(movie.title)}`}
                                         alt={movie.title}
                                     />
                                     <div className="movie-overlay">

@@ -113,49 +113,65 @@ async function seed() {
                 title: 'Avengers: Endgame', slug: 'avengers-endgame',
                 description: 'Trận chiến cuối cùng của các siêu anh hùng Marvel',
                 genre: ['Hành động', 'Viễn tưởng'], durationMinutes: 181,
-                language: 'English', subtitle: 'Vietnamese', ageRating: 'C13', status: 'now_showing'
+                language: 'English', subtitle: 'Vietnamese', ageRating: 'C13', status: 'now_showing',
+                posterUrl: 'https://image.tmdb.org/t/p/w500/or06FN3Dka5tukK1e9sl16pB3iy.jpg',
+                trailerUrl: 'https://www.youtube.com/watch?v=TcMBFSGVi1c'
             },
             {
                 title: 'Lật Mặt 7', slug: 'lat-mat-7',
                 description: 'Một bộ phim của Lý Hải về gia đình và tình cảm',
                 genre: ['Hài', 'Gia đình'], durationMinutes: 130,
-                language: 'Vietnamese', ageRating: 'P', status: 'now_showing'
+                language: 'Vietnamese', ageRating: 'P', status: 'now_showing',
+                posterUrl: 'https://image.tmdb.org/t/p/w500/p4T0q4z3qUq328WfW9G0l8K8vA5.jpg',
+                trailerUrl: 'https://www.youtube.com/watch?v=k42Zntp1t1g'
             },
             {
                 title: 'Mai', slug: 'mai-2026',
                 description: 'Câu chuyện tình yêu và những nỗi đau giấu kín của một cô gái tên Mai',
                 genre: ['Tâm lý', 'Tình cảm'], durationMinutes: 131,
-                language: 'Vietnamese', ageRating: 'C16', status: 'now_showing'
+                language: 'Vietnamese', ageRating: 'C16', status: 'now_showing',
+                posterUrl: 'https://image.tmdb.org/t/p/w500/1X6Mbd9ZfP1aZ8g6lq4G4Q7A2yT.jpg',
+                trailerUrl: 'https://www.youtube.com/watch?v=VwB8xXN-fM8'
             },
             {
                 title: 'Dune: Part Two', slug: 'dune-part-two',
                 description: 'Paul Atreides tiếp tục hành trình chinh phục sa mạc Arrakis',
                 genre: ['Viễn tưởng', 'Phiêu lưu'], durationMinutes: 166,
-                language: 'English', subtitle: 'Vietnamese', ageRating: 'C13', status: 'now_showing'
+                language: 'English', subtitle: 'Vietnamese', ageRating: 'C13', status: 'now_showing',
+                posterUrl: 'https://image.tmdb.org/t/p/w500/1pdfLvkbY9ohJlCjQH2JGjjc9CW.jpg',
+                trailerUrl: 'https://www.youtube.com/watch?v=Way9Dexny3w'
             },
             {
                 title: 'Quỷ Cẩu', slug: 'quy-cau',
                 description: 'Bộ phim kinh dị Việt Nam về truyền thuyết dân gian đáng sợ',
                 genre: ['Kinh dị', 'Tâm lý'], durationMinutes: 105,
-                language: 'Vietnamese', ageRating: 'C18', status: 'now_showing'
+                language: 'Vietnamese', ageRating: 'C18', status: 'now_showing',
+                posterUrl: 'https://image.tmdb.org/t/p/w500/jI4b1lZ5W2yZ0g3e7tqUvO0sFvH.jpg',
+                trailerUrl: 'https://www.youtube.com/watch?v=UqQ1r4Xb3A0'
             },
             {
                 title: 'Kungfu Panda 4', slug: 'kungfu-panda-4',
                 description: 'Po tiếp tục cuộc phiêu lưu trở thành Rồng Chiến Binh',
                 genre: ['Hoạt hình', 'Hài'], durationMinutes: 94,
-                language: 'English', subtitle: 'Vietnamese', ageRating: 'P', status: 'now_showing'
+                language: 'English', subtitle: 'Vietnamese', ageRating: 'P', status: 'now_showing',
+                posterUrl: 'https://image.tmdb.org/t/p/w500/kDp1vUBnMpe8ak4rjgl3cLELqjU.jpg',
+                trailerUrl: 'https://www.youtube.com/watch?v=_inKs4eeHiI'
             },
             {
                 title: 'Đào, Phở và Piano', slug: 'dao-pho-va-piano',
                 description: 'Bộ phim lấy bối cảnh Hà Nội năm 1946 đầy cảm xúc',
                 genre: ['Lịch sử', 'Tình cảm'], durationMinutes: 100,
-                language: 'Vietnamese', ageRating: 'C13', status: 'now_showing'
+                language: 'Vietnamese', ageRating: 'C13', status: 'now_showing',
+                posterUrl: 'https://image.tmdb.org/t/p/w500/z6bH5P62hE28aE3K6yU9B2H8S5Q.jpg',
+                trailerUrl: 'https://www.youtube.com/watch?v=f0bJ5ZpXpLg'
             },
             {
                 title: 'Godzilla x Kong: The New Empire', slug: 'godzilla-x-kong',
                 description: 'Godzilla và Kong hợp lực chống lại mối đe dọa mới từ lòng đất',
                 genre: ['Hành động', 'Viễn tưởng'], durationMinutes: 115,
-                language: 'English', subtitle: 'Vietnamese', ageRating: 'C13', status: 'now_showing'
+                language: 'English', subtitle: 'Vietnamese', ageRating: 'C13', status: 'now_showing',
+                posterUrl: 'https://image.tmdb.org/t/p/w500/tMefBSflR6PGQLvLuPEgjXyXWht.jpg',
+                trailerUrl: 'https://www.youtube.com/watch?v=qqrpMRDuPfc'
             }
         ];
 

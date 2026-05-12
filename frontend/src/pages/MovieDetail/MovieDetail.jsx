@@ -102,12 +102,12 @@ const MovieDetail = () => {
             <div
                 className="md-backdrop"
                 style={{
-                    backgroundImage: `linear-gradient(rgba(18,18,18,0.8), rgba(18,18,18,1)), url(${movie.posterUrl || `https://via.placeholder.com/1200x500/1E1E1E/E50914?text=${encodeURIComponent(movie.title)}`})`
+                    backgroundImage: `linear-gradient(rgba(18,18,18,0.8), rgba(18,18,18,1)), url(${movie.posterUrl || `https://placehold.co/1200x500/1E1E1E/E50914?text=${encodeURIComponent(movie.title)}`})`
                 }}
             >
                 <div className="container md-header">
                     <div className="md-poster shadow-glow">
-                        <img src={movie.posterUrl || `https://via.placeholder.com/300x450/1E1E1E/E50914?text=${encodeURIComponent(movie.title)}`} alt={movie.title} />
+                        <img src={movie.posterUrl || `https://placehold.co/300x450/1E1E1E/E50914?text=${encodeURIComponent(movie.title)}`} alt={movie.title} />
                     </div>
                     <div className="md-info">
                         <h1 className="md-title">{movie.title}</h1>
