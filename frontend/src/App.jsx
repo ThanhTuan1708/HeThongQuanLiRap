@@ -18,6 +18,10 @@ import Profile from './pages/Profile/Profile';
 import Promotions from './pages/Promotions/Promotions';
 import Register from './pages/Register/Register';
 import Ticketing from './pages/Ticketing/Ticketing';
+import Terms from './pages/StaticPages/Terms';
+import Privacy from './pages/StaticPages/Privacy';
+import FAQ from './pages/StaticPages/FAQ';
+import Contact from './pages/StaticPages/Contact';
 
 const Placeholder = ({ title }) => (
     <div className="container animate-fade-in">
@@ -40,6 +44,10 @@ function App() {
                             <Route path="cinemas" element={<Cinemas />} />
                             <Route path="promotions" element={<Promotions />} />
                             <Route path="ticketing" element={<Ticketing />} />
+                            <Route path="terms" element={<Terms />} />
+                            <Route path="privacy" element={<Privacy />} />
+                            <Route path="faq" element={<FAQ />} />
+                            <Route path="contact" element={<Contact />} />
 
                             <Route element={<ProtectedRoute />}>
                                 <Route path="profile" element={<Profile />} />

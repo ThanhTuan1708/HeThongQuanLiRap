@@ -38,7 +38,7 @@ const Home = () => {
         <div className="home-page animate-fade-in">
             <section className="hero-banner">
                 <div className="hero-content container">
-                    <span className="badge-featured">PHIM HOT THÁNG 3</span>
+                    <span className="badge-featured">PHIM HOT THÁNG {new Date().getMonth() + 1}</span>
                     <h1 className="hero-title">SIÊU BOM TẤN ĐÃ ĐỔ BỘ</h1>
                     <p className="hero-desc">
                         Khám phá vũ trụ điện ảnh với hệ thống rạp chuẩn quốc tế, âm thanh vòm đỉnh cao và phòng chiếu IMAX độc quyền.
@@ -70,6 +70,7 @@ const Home = () => {
                                     <img
                                         src={movie.posterUrl || `https://placehold.co/300x450/1E1E1E/E50914?text=${encodeURIComponent(movie.title)}`}
                                         alt={movie.title}
+                                        onError={(e) => { e.target.onerror = null; e.target.src = `https://via.placeholder.com/300x450/1E1E1E/E50914?text=${encodeURIComponent(movie.title)}`; }}
                                     />
                                     <div className="movie-overlay">
                                         <button className="btn-book" onClick={(e) => { e.preventDefault(); e.stopPropagation(); navigate(`/ticketing?movieId=${movie._id}`); }}>Mua Vé Ngay</button>

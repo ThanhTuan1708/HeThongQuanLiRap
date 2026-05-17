@@ -23,7 +23,7 @@ const ComingSoon = () => {
                 setMovies(response?.data?.movies || []);
                 setError('');
             } catch (err) {
-                setError('Khong the tai danh sach phim sap chieu. Vui long thu lai sau.');
+                setError('Không thể tải danh sách phim sắp chiếu. Vui lòng thử lại sau.');
             } finally {
                 setLoading(false);
             }
@@ -37,18 +37,18 @@ const ComingSoon = () => {
         <div className="home-page animate-fade-in">
             <section className="container movies-section">
                 <div className="section-header">
-                    <h2 className="section-title">Phim Sap Chieu</h2>
+                    <h2 className="section-title">Phim Sắp Chiếu</h2>
                     <div className="search-box">
                         <Search size={18} />
                         <input
                             value={search}
                             onChange={(event) => setSearch(event.target.value)}
-                            placeholder="Tim phim theo ten..."
+                            placeholder="Tìm phim theo tên..."
                         />
                     </div>
                 </div>
 
-                {loading ? <div className="loader-container">Dang tai danh sach phim sap chieu...</div> : null}
+                {loading ? <div className="loader-container">Đang tải danh sách phim sắp chiếu...</div> : null}
                 {error ? <div className="error-message">{error}</div> : null}
 
                 {!loading && !error && movies.length > 0 ? (
@@ -59,19 +59,20 @@ const ComingSoon = () => {
                                     <img
                                         src={movie.posterUrl || `https://placehold.co/300x450/1E1E1E/E50914?text=${encodeURIComponent(movie.title)}`}
                                         alt={movie.title}
+                                        onError={(e) => { e.target.onerror = null; e.target.src = `https://via.placeholder.com/300x450/1E1E1E/E50914?text=${encodeURIComponent(movie.title)}`; }}
                                     />
                                     <div className="movie-overlay">
-                                        <button className="btn-book">Xem Chi Tiet</button>
+                                        <button className="btn-book">Xem Chi Tiết</button>
                                     </div>
                                     {movie.ageRating ? <span className="movie-rating">{movie.ageRating}</span> : null}
                                 </div>
                                 <div className="movie-info">
                                     <h3 className="movie-title">{movie.title}</h3>
                                     <div className="movie-meta">
-                                        <span className="meta-item"><Clock size={14} /> {movie.durationMinutes} phut</span>
+                                        <span className="meta-item"><Clock size={14} /> {movie.durationMinutes} phút</span>
                                         <span className="meta-item">
                                             <CalendarDays size={14} />
-                                            {movie.releaseDate ? new Date(movie.releaseDate).toLocaleDateString('vi-VN') : 'Sap chieu'}
+                                            {movie.releaseDate ? new Date(movie.releaseDate).toLocaleDateString('vi-VN') : 'Sắp chiếu'}
                                         </span>
                                     </div>
                                     <div className="movie-genre">
@@ -87,7 +88,7 @@ const ComingSoon = () => {
 
                 {!loading && !error && movies.length === 0 ? (
                     <div className="empty-message">
-                        {search ? 'Khong tim thay phim phu hop voi tu khoa cua ban.' : 'Hien khong co phim sap chieu.'}
+                        {search ? 'Không tìm thấy phim phù hợp với từ khóa của bạn.' : 'Hiện không có phim sắp chiếu.'}
                     </div>
                 ) : null}
             </section>

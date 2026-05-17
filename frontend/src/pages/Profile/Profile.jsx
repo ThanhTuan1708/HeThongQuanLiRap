@@ -259,7 +259,7 @@ const Profile = () => {
                             {bookings.map((booking) => (
                                 <div key={booking._id} className="booking-card">
                                     <div className="bk-poster">
-                                        <img src={booking.showtime?.movie?.posterUrl || 'https://placehold.co/150x225/1E1E1E/E50914?text=Movie'} alt="poster" />
+                                        <img src={booking.showtime?.movie?.posterUrl || 'https://placehold.co/150x225/1E1E1E/E50914?text=Movie'} alt="poster" onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/150x225/1E1E1E/E50914?text=Movie'; }} />
                                     </div>
                                     <div className="bk-info">
                                         <div className="bk-header">

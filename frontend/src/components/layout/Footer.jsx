@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Film, Facebook, Instagram, Twitter, Youtube } from 'lucide-react';
 import './Footer.css';
 
@@ -23,20 +24,20 @@ const Footer = () => {
                 <div className="footer-links-group">
                     <h3 className="footer-title">Khám Phá</h3>
                     <ul className="footer-links">
-                        <li><a href="#">Phim Đang Chiếu</a></li>
-                        <li><a href="#">Phim Sắp Chiếu</a></li>
-                        <li><a href="#">Cụm Rạp</a></li>
-                        <li><a href="#">Khuyến Mãi</a></li>
+                        <li><Link to="/">Phim Đang Chiếu</Link></li>
+                        <li><Link to="/coming-soon">Phim Sắp Chiếu</Link></li>
+                        <li><Link to="/cinemas">Cụm Rạp</Link></li>
+                        <li><Link to="/promotions">Khuyến Mãi</Link></li>
                     </ul>
                 </div>
 
                 <div className="footer-links-group">
                     <h3 className="footer-title">Hỗ Trợ</h3>
                     <ul className="footer-links">
-                        <li><a href="#">Điều khoản sử dụng</a></li>
-                        <li><a href="#">Chính sách bảo mật</a></li>
-                        <li><a href="#">Câu hỏi thường gặp</a></li>
-                        <li><a href="#">Liên hệ</a></li>
+                        <li><Link to="/terms">Điều khoản sử dụng</Link></li>
+                        <li><Link to="/privacy">Chính sách bảo mật</Link></li>
+                        <li><Link to="/faq">Câu hỏi thường gặp</Link></li>
+                        <li><Link to="/contact">Liên hệ</Link></li>
                     </ul>
                 </div>
 

@@ -107,7 +107,7 @@ const MovieDetail = () => {
             >
                 <div className="container md-header">
                     <div className="md-poster shadow-glow">
-                        <img src={movie.posterUrl || `https://placehold.co/300x450/1E1E1E/E50914?text=${encodeURIComponent(movie.title)}`} alt={movie.title} />
+                        <img src={movie.posterUrl || `https://placehold.co/300x450/1E1E1E/E50914?text=${encodeURIComponent(movie.title)}`} alt={movie.title} onError={(e) => { e.target.onerror = null; e.target.src = `https://placehold.co/300x450/1E1E1E/E50914?text=${encodeURIComponent(movie.title)}`; }} />
                     </div>
                     <div className="md-info">
                         <h1 className="md-title">{movie.title}</h1>

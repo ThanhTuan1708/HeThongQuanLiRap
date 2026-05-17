@@ -87,3 +87,28 @@
 .login-footer a:hover {
     text-decoration: underline;
 }
+
+.form-control-error {
+    border-color: var(--color-danger) !important;
+    box-shadow: 0 0 0 2px rgba(244, 67, 54, 0.15);
+}
+
+.field-error {
+    display: block;
+    color: var(--color-danger);
+    font-size: 0.82rem;
+    margin-top: 5px;
+    padding-left: 2px;
+    animation: fadeInError 0.25s ease;
+}
+
+@keyframes fadeInError {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

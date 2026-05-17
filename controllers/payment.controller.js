@@ -46,7 +46,7 @@ const forwardError = (err, req, res, next) => {
 };
 
 const buildSeatConflictError = (seatCodes) => {
-    const err = new Error(`Ghe da co nguoi dat: ${seatCodes.join(', ')}`);
+    const err = new Error(`Ghế đã có người đặt: ${seatCodes.join(', ')}`);
     err.statusCode = 409;
     return err;
 };
@@ -86,7 +86,7 @@ const findConflictingSeatCodes = async ({ booking }) => {
 const handlePaymentSuccess = async (payment) => {
     const bookings = await Booking.find({ _id: { $in: payment.bookings } });
     if (bookings.length === 0) {
-        const err = new Error('Bookings khong ton tai.');
+        const err = new Error('Booking không tồn tại.');
         err.statusCode = 404;
         throw err;
     }
@@ -101,7 +101,7 @@ const handlePaymentSuccess = async (payment) => {
                 seatCode: { $in: booking.seatCodes },
                 user: booking.user
             });
-            const err = new Error('Mot trong cac Booking da het han thanh toan.');
+            const err = new Error('Một trong các Booking đã hết hạn thanh toán.');
             err.statusCode = 422;
             throw err;
         }
@@ -170,24 +170,24 @@ exports.createPayment = async (req, res, next) => {
         const bookingIds = inputBookingIds || (bookingId ? [bookingId] : []);
 
         if (bookingIds.length === 0) {
-            return sendError(res, 'Vui long cung cap bookingId hoac bookingIds.', 400);
+            return sendError(res, 'Vui lòng cung cấp bookingId hoặc bookingIds.', 400);
         }
 
         const bookings = await Booking.find({ _id: { $in: bookingIds } });
         if (bookings.length !== bookingIds.length) {
-            return sendError(res, 'Mot hoac nhieu Booking khong ton tai.', 404);
+            return sendError(res, 'Một hoặc nhiều Booking không tồn tại.', 404);
         }
 
         let totalAmount = 0;
         for (const booking of bookings) {
             if (!canAccessBooking(req.user, booking.user)) {
-                return sendError(res, 'Ban khong co quyen thanh toan mot trong cac booking nay.', 403);
+                return sendError(res, 'Bạn không có quyền thanh toán một trong các booking này.', 403);
             }
             if (!provider) {
-                return sendError(res, 'Vui long chon phuong thuc thanh toan.', 400);
+                return sendError(res, 'Vui lòng chọn phương thức thanh toán.', 400);
             }
             if (booking.status !== 'pending_payment') {
-                return sendError(res, 'Mot hoac nhieu Booking khong o trang thai cho thanh toan.', 422);
+                return sendError(res, 'Một hoặc nhiều Booking không ở trạng thái chờ thanh toán.', 422);
             }
             if (booking.expiresAt && booking.expiresAt <= new Date()) {
                 booking.status = 'expired';
@@ -197,12 +197,12 @@ exports.createPayment = async (req, res, next) => {
                     seatCode: { $in: booking.seatCodes },
                     user: booking.user
                 });
-                return sendError(res, 'Mot hoac nhieu Booking da het han thanh toan.', 422);
+                return sendError(res, 'Một hoặc nhiều Booking đã hết hạn thanh toán.', 422);
             }
 
             const conflictingSeatCodes = await findConflictingSeatCodes({ booking });
             if (conflictingSeatCodes.length > 0) {
-                return sendError(res, `Ghe da co nguoi dat: ${conflictingSeatCodes.join(', ')}`, 409);
+                return sendError(res, `Ghế đã có người đặt: ${conflictingSeatCodes.join(', ')}`, 409);
             }
 
             totalAmount += booking.totalAmount;
@@ -253,11 +253,11 @@ exports.createPayment = async (req, res, next) => {
 exports.getPayment = async (req, res, next) => {
     try {
         const payment = await Payment.findById(req.params.paymentId).populate('bookings');
-        if (!payment) return sendError(res, 'Payment khong ton tai.', 404);
+        if (!payment) return sendError(res, 'Giao dịch không tồn tại.', 404);
         
         const firstBooking = payment.bookings && payment.bookings[0];
         if (firstBooking && !canAccessBooking(req.user, firstBooking.user)) {
-            return sendError(res, 'Ban khong co quyen xem giao dich nay.', 403);
+            return sendError(res, 'Bạn không có quyền xem giao dịch này.', 403);
         }
         sendSuccess(res, { payment });
     } catch (err) {
@@ -268,9 +268,9 @@ exports.getPayment = async (req, res, next) => {
 exports.getPaymentByBooking = async (req, res, next) => {
     try {
         const booking = await Booking.findById(req.params.bookingId);
-        if (!booking) return sendError(res, 'Booking khong ton tai.', 404);
+        if (!booking) return sendError(res, 'Booking không tồn tại.', 404);
         if (!canAccessBooking(req.user, booking.user)) {
-            return sendError(res, 'Ban khong co quyen xem giao dich cho booking nay.', 403);
+            return sendError(res, 'Bạn không có quyền xem giao dịch cho booking này.', 403);
         }
 
         const payments = await Payment.find({ bookings: { $in: [req.params.bookingId] } }).sort({ createdAt: -1 });
@@ -353,7 +353,7 @@ exports.paymentReturn = async (req, res, next) => {
 exports.mockGateway = async (req, res, next) => {
     try {
         const payment = await Payment.findById(req.params.paymentId).populate('bookings');
-        if (!payment) return sendError(res, 'Payment khong ton tai.', 404);
+        if (!payment) return sendError(res, 'Giao dịch không tồn tại.', 404);
 
         if (payment.status === 'completed') {
             await handlePaymentSuccess(payment);
@@ -383,14 +383,14 @@ exports.mockGateway = async (req, res, next) => {
 exports.simulateSuccess = async (req, res, next) => {
     try {
         const payment = await Payment.findById(req.params.paymentId).populate('bookings');
-        if (!payment) return sendError(res, 'Payment khong ton tai.', 404);
+        if (!payment) return sendError(res, 'Giao dịch không tồn tại.', 404);
         
         const firstBooking = payment.bookings && payment.bookings[0];
         if (firstBooking && !canAccessBooking(req.user, firstBooking.user)) {
-            return sendError(res, 'Ban khong co quyen thao tac giao dich nay.', 403);
+            return sendError(res, 'Bạn không có quyền thao tác giao dịch này.', 403);
         }
         if (payment.status !== 'pending') {
-            return sendError(res, 'Payment khong o trang thai pending.', 422);
+            return sendError(res, 'Giao dịch không ở trạng thái chờ thanh toán.', 422);
         }
 
         payment.transactionId = `SIM_${Date.now()}`;

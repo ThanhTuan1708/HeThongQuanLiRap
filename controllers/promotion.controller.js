@@ -6,7 +6,7 @@ exports.validatePromotion = async (req, res, next) => {
     try {
         const { code } = req.query;
 
-        if (!code) return sendError(res, 'Vui long nhap ma khuyen mai.', 400);
+        if (!code) return sendError(res, 'Vui lòng nhập mã khuyến mãi.', 400);
 
         const promo = await Promotion.findOne({
             code: code.toUpperCase(),
@@ -16,11 +16,11 @@ exports.validatePromotion = async (req, res, next) => {
         });
 
         if (!promo) {
-            return sendError(res, 'Ma khuyen mai khong hop le hoac da het han.', 404);
+            return sendError(res, 'Mã khuyến mãi không hợp lệ hoặc đã hết hạn.', 404);
         }
 
         if (promo.usageLimit && promo.usedCount >= promo.usageLimit) {
-            return sendError(res, 'Ma khuyen mai da het luot su dung.', 422);
+            return sendError(res, 'Mã khuyến mãi đã hết lượt sử dụng.', 422);
         }
 
         if (req.user) {
@@ -41,7 +41,7 @@ exports.validatePromotion = async (req, res, next) => {
             maxDiscount: promo.maxDiscount,
             minOrderValue: promo.minOrderValue,
             validTo: promo.validTo
-        }, 'Ma khuyen mai hop le');
+        }, 'Mã khuyến mãi hợp lệ');
     } catch (err) {
         next(err);
     }
@@ -98,7 +98,7 @@ exports.updatePromotion = async (req, res, next) => {
             req.body,
             { new: true, runValidators: true }
         );
-        if (!promotion) return sendError(res, 'Khuyen mai khong ton tai.', 404);
+        if (!promotion) return sendError(res, 'Khuyến mãi không tồn tại.', 404);
         sendSuccess(res, { promotion }, 'Promotion updated');
     } catch (err) {
         next(err);
@@ -112,7 +112,7 @@ exports.deletePromotion = async (req, res, next) => {
             { status: 'inactive' },
             { new: true }
         );
-        if (!promotion) return sendError(res, 'Khuyen mai khong ton tai.', 404);
+        if (!promotion) return sendError(res, 'Khuyến mãi không tồn tại.', 404);
         sendSuccess(res, { promotion }, 'Promotion deactivated');
     } catch (err) {
         next(err);

@@ -25,9 +25,9 @@ exports.getTicket = async (req, res, next) => {
             })
             .populate('seatType', 'name code');
 
-        if (!ticket) return sendError(res, 'Ve khong ton tai.', 404);
+        if (!ticket) return sendError(res, 'Vé không tồn tại.', 404);
         if (!canAccessBookingTickets(req.user, ticket.booking?.user)) {
-            return sendError(res, 'Ban khong co quyen xem ve nay.', 403);
+            return sendError(res, 'Bạn không có quyền xem vé này.', 403);
         }
 
         sendSuccess(res, { ticket });
@@ -41,9 +41,9 @@ exports.getTicketsByBooking = async (req, res, next) => {
     try {
         const booking = await Booking.findById(req.params.bookingId).select('user');
 
-        if (!booking) return sendError(res, 'Booking khong ton tai.', 404);
+        if (!booking) return sendError(res, 'Booking không tồn tại.', 404);
         if (!canAccessBookingTickets(req.user, booking.user)) {
-            return sendError(res, 'Ban khong co quyen xem danh sach ve cua booking nay.', 403);
+            return sendError(res, 'Bạn không có quyền xem danh sách vé của booking này.', 403);
         }
 
         const tickets = await Ticket.find({ booking: req.params.bookingId })
@@ -90,13 +90,13 @@ exports.checkIn = async (req, res, next) => {
                 });
         }
 
-        if (!ticket) return sendError(res, 'Ve khong ton tai.', 404);
+        if (!ticket) return sendError(res, 'Vé không tồn tại.', 404);
 
         if (ticket.status === 'used') {
-            return sendError(res, 'Ve da duoc su dung.', 422);
+            return sendError(res, 'Vé đã được sử dụng.', 422);
         }
         if (ticket.status === 'cancelled') {
-            return sendError(res, 'Ve da bi huy.', 422);
+            return sendError(res, 'Vé đã bị hủy.', 422);
         }
 
         ticket.status = 'used';

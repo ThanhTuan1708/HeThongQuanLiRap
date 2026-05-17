@@ -50,7 +50,7 @@ const findReservedSeatCodes = async ({ showtimeId, seatCodes, ignoreBookingId = 
 const calculateSubtotal = async (showtimeId, seatCodes) => {
     const showtime = await Showtime.findById(showtimeId).populate('room');
     if (!showtime) {
-        return { error: 'Suat chieu khong ton tai.', statusCode: 404 };
+        return { error: 'Suất chiếu không tồn tại.', statusCode: 404 };
     }
 
     const room = await Room.findById(showtime.room._id || showtime.room);
@@ -59,7 +59,7 @@ const calculateSubtotal = async (showtimeId, seatCodes) => {
     for (const code of seatCodes) {
         const seat = room.seatLayout.find((item) => item.seatCode === code);
         if (!seat) {
-            return { error: `Ghe ${code} khong ton tai trong phong.`, statusCode: 400 };
+            return { error: `Ghế ${code} không tồn tại trong phòng.`, statusCode: 400 };
         }
 
         const seatTypeId = seat.seatTypeId.toString();
@@ -85,15 +85,15 @@ const validatePromotionForBooking = async ({ promotionCode, userId, subtotal, ig
     });
 
     if (!promo) {
-        return { error: 'Ma khuyen mai khong hop le hoac da het han.', statusCode: 422 };
+        return { error: 'Mã khuyến mãi không hợp lệ hoặc đã hết hạn.', statusCode: 422 };
     }
 
     if (promo.usageLimit && promo.usedCount >= promo.usageLimit) {
-        return { error: 'Ma khuyen mai da het luot su dung.', statusCode: 422 };
+        return { error: 'Mã khuyến mãi đã hết lượt sử dụng.', statusCode: 422 };
     }
 
     if (subtotal < promo.minOrderValue) {
-        return { error: `Don hang toi thieu ${promo.minOrderValue} VND de ap dung ma nay.`, statusCode: 422 };
+        return { error: `Đơn hàng tối thiểu ${promo.minOrderValue} VND để áp dụng mã này.`, statusCode: 422 };
     }
 
     const usageQuery = {
@@ -107,7 +107,7 @@ const validatePromotionForBooking = async ({ promotionCode, userId, subtotal, ig
 
     const userUsageCount = await PromotionUsage.countDocuments(usageQuery);
     if (promo.perUserLimit && userUsageCount >= promo.perUserLimit) {
-        return { error: 'Ban da su dung het luot cho ma nay.', statusCode: 422 };
+        return { error: 'Bạn đã sử dụng hết lượt cho mã này.', statusCode: 422 };
     }
 
     let discountAmount = 0;
@@ -156,12 +156,12 @@ exports.createBooking = async (req, res, next) => {
         });
 
         if (locks.length !== seatCodes.length) {
-            return sendError(res, 'Mot hoac nhieu ghe chua duoc giu hoac da het han. Vui long giu ghe lai.', 400);
+            return sendError(res, 'Một hoặc nhiều ghế chưa được giữ hoặc đã hết hạn. Vui lòng giữ ghế lại.', 400);
         }
 
         const reservedSeatCodes = await findReservedSeatCodes({ showtimeId, seatCodes });
         if (reservedSeatCodes.length > 0) {
-            return sendError(res, `Ghe da co nguoi dat: ${reservedSeatCodes.join(', ')}`, 409);
+            return sendError(res, `Ghế đã có người đặt: ${reservedSeatCodes.join(', ')}`, 409);
         }
 
         const pricingResult = await calculateSubtotal(showtimeId, seatCodes);
@@ -235,9 +235,9 @@ exports.getBooking = async (req, res, next) => {
             })
             .populate('user', 'fullName email phone');
 
-        if (!booking) return sendError(res, 'Booking khong ton tai.', 404);
+        if (!booking) return sendError(res, 'Booking không tồn tại.', 404);
         if (!canAccessBooking(req.user, booking.user._id || booking.user)) {
-            return sendError(res, 'Ban khong co quyen xem booking nay.', 403);
+            return sendError(res, 'Bạn không có quyền xem booking này.', 403);
         }
 
         sendSuccess(res, { booking });
@@ -290,15 +290,15 @@ exports.applyPromotion = async (req, res, next) => {
         const { promotionCode } = req.body;
         const booking = await Booking.findById(req.params.bookingId);
 
-        if (!booking) return sendError(res, 'Booking khong ton tai.', 404);
+        if (!booking) return sendError(res, 'Booking không tồn tại.', 404);
         if (!canAccessBooking(req.user, booking.user)) {
-            return sendError(res, 'Ban khong co quyen cap nhat booking nay.', 403);
+            return sendError(res, 'Bạn không có quyền cập nhật booking này.', 403);
         }
         if (booking.status !== 'pending_payment') {
-            return sendError(res, 'Chi co the ap ma cho booking chua thanh toan.', 422);
+            return sendError(res, 'Chỉ có thể áp mã cho booking chưa thanh toán.', 422);
         }
         if (booking.expiresAt && booking.expiresAt <= new Date()) {
-            return sendError(res, 'Booking da het han thanh toan.', 422);
+            return sendError(res, 'Booking đã hết hạn thanh toán.', 422);
         }
 
         const pricingResult = await calculateSubtotal(booking.showtime, booking.seatCodes);
@@ -350,12 +350,12 @@ exports.applyPromotion = async (req, res, next) => {
 exports.cancelBooking = async (req, res, next) => {
     try {
         const booking = await Booking.findById(req.params.bookingId);
-        if (!booking) return sendError(res, 'Booking khong ton tai.', 404);
+        if (!booking) return sendError(res, 'Booking không tồn tại.', 404);
         if (!canAccessBooking(req.user, booking.user)) {
-            return sendError(res, 'Ban khong co quyen huy booking nay.', 403);
+            return sendError(res, 'Bạn không có quyền hủy booking này.', 403);
         }
         if (booking.status !== 'pending_payment') {
-            return sendError(res, 'Chi co the huy booking chua thanh toan.', 422);
+            return sendError(res, 'Chỉ có thể hủy booking chưa thanh toán.', 422);
         }
 
         await clearExistingPromotionUsage(booking);

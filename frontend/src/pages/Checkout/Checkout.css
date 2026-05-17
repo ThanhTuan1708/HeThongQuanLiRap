@@ -6,8 +6,9 @@
 
 .checkout-wrapper {
     width: 100%;
-    max-width: 550px;
+    max-width: 700px;
     padding: 40px;
+    overflow: hidden;
 }
 
 .checkout-page-paid {
@@ -207,33 +208,35 @@
 }
 
 .checkout-ticket-detail-card {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) 190px;
-    align-items: center;
-    gap: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
     padding: 16px;
     border-radius: var(--border-radius-sm);
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255, 255, 255, 0.08);
+    overflow: hidden;
 }
 
 .ticket-info-panel {
     display: grid;
-    grid-template-columns: 96px minmax(0, 1fr);
-    gap: 18px;
-    align-items: center;
+    grid-template-columns: 80px minmax(0, 1fr);
+    gap: 14px;
+    align-items: start;
     min-width: 0;
+    width: 100%;
 }
 
 .ticket-seat-code {
     display: flex;
-    min-height: 96px;
+    min-height: 80px;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     border-radius: var(--border-radius-sm);
     background: rgba(229, 9, 20, 0.14);
     border: 1px solid rgba(229, 9, 20, 0.28);
+    padding: 8px;
 }
 
 .ticket-seat-code strong {
@@ -245,15 +248,19 @@
 .ticket-info-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 12px;
+    gap: 10px;
+    min-width: 0;
+    word-break: break-word;
 }
 
 .ticket-scan-panel {
     display: flex;
     min-width: 0;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
+    justify-content: center;
     gap: 12px;
+    flex-wrap: wrap;
 }
 
 .save-ticket-btn {
@@ -308,39 +315,42 @@
 
 @media (max-width: 600px) {
     .checkout-wrapper {
-        padding: 20px;
+        padding: 16px;
     }
 
-    .ticket-detail-head,
-    .checkout-ticket-detail-card,
+    .ticket-detail-head {
+        flex-direction: column;
+    }
+
     .ticket-info-panel {
         grid-template-columns: 1fr;
     }
 
-    .ticket-detail-head {
-        display: grid;
-    }
-
     .ticket-summary-box,
     .ticket-info-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .ticket-scan-panel {
         width: 100%;
+        flex-direction: column;
     }
 
     .paid-badge {
         width: fit-content;
     }
+
+    .detail-row {
+        flex-direction: column;
+        gap: 4px;
+    }
 }
 
 @media (max-width: 900px) {
     .checkout-wrapper-paid {
-        max-width: 680px;
+        max-width: 700px;
     }
 
-    .checkout-ticket-detail-card,
     .ticket-info-panel {
         grid-template-columns: 1fr;
     }

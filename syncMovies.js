@@ -62,8 +62,8 @@ const toMoviePayload = (movie, detail, status) => {
     return {
         title,
         slug: `tmdb-${movie.id}-${normalizeSlug(title) || 'movie'}`,
-        description: detail.overview || movie.overview || 'Thong tin phim dang duoc cap nhat tu TMDB.',
-        genre: genres.length > 0 ? genres : ['Dien anh'],
+        description: detail.overview || movie.overview || 'Thông tin phim đang được cập nhật từ TMDB.',
+        genre: genres.length > 0 ? genres : ['Điện ảnh'],
         durationMinutes: runtime > 0 ? runtime : 100,
         language: detail.original_language || movie.original_language || 'vi',
         subtitle: 'Vietnamese',
@@ -143,9 +143,9 @@ async function fetchMovieDetail(movieId) {
 
 async function ensureSeatTypes() {
     const definitions = [
-        { code: 'NORMAL', name: 'Ghe Thuong', baseSurcharge: 0, color: '#4CAF50' },
-        { code: 'VIP', name: 'Ghe VIP', baseSurcharge: 30000, color: '#FF9800' },
-        { code: 'SWEETBOX', name: 'Ghe Sweetbox', baseSurcharge: 60000, color: '#E91E63' }
+        { code: 'NORMAL', name: 'Ghế Thường', baseSurcharge: 0, color: '#4CAF50' },
+        { code: 'VIP', name: 'Ghế VIP', baseSurcharge: 30000, color: '#FF9800' },
+        { code: 'SWEETBOX', name: 'Ghế Sweetbox', baseSurcharge: 60000, color: '#E91E63' }
     ];
 
     const result = {};
@@ -168,11 +168,11 @@ async function ensureCinema() {
             name: 'Lotte Cinema TP.HCM',
             city: 'TP.HCM',
             district: 'Quan 1',
-            address: 'Khu vuc trung tam TP.HCM',
+            address: 'Khu vực trung tâm TP.HCM',
             phone: '1900-6017',
             email: 'support@lottecinemavn.com',
             timezone: 'Asia/Ho_Chi_Minh',
-            description: 'Du lieu phim dong bo tu TMDB, lich chieu duoc tao tu dong cho he thong dat ve.',
+            description: 'Dữ liệu phim đồng bộ từ TMDB, lịch chiếu được tạo tự động cho hệ thống đặt vé.',
             location: { type: 'Point', coordinates: [106.7009, 10.7769] },
             status: 'active'
         },
@@ -182,10 +182,10 @@ async function ensureCinema() {
 
 async function ensureRoom(cinemaId, seatTypes) {
     return Room.findOneAndUpdate(
-        { cinema: cinemaId, name: 'Phong 1 - 2D' },
+        { cinema: cinemaId, name: 'Phòng 1 - 2D' },
         {
             cinema: cinemaId,
-            name: 'Phong 1 - 2D',
+            name: 'Phòng 1 - 2D',
             screenType: '2D',
             seatLayout: seatLayoutFactory(seatTypes),
             status: 'active'
